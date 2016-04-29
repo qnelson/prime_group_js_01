@@ -1,30 +1,15 @@
-//variables from in-class problem, changed variable names to array+name
-var arrayAtticus = ['Atticus', '2405', '47000', 3];
-var arrayJem = ['Jem', '62347', '63500', 4];
-var arrayBoo = ['Boo', '11435', '54000', 3];
-var arrayScout = ['Scout', '6243', '74750', 5];
+var atticus = ['Atticus', '2405', '47000', 3];
+var jem = ['Jem', '62347', '63500', 4];
+var boo = ['Boo', '11435', '54000', 3];
+var scout = ['Scout', '6243', '74750', 5];
 
-//Constructor function
-function Person(name, number, salary, rating) {
-  this.name = name;
-  this.number = number;
-  this.salary = salary;
-  this.rating = rating;
-}
-
-//Instances of Person
-var atticus = new Person('Atticus', '2405', '47000', 3);
-var jem = new Person('Jem', '62347', '63500', 4);
-var boo = new Person('Boo', '11435', '54000', 3);
-var scout = new Person('Scout', '6243', '74750', 5);
 var employees = [atticus, jem, boo, scout];
 
-//function calculates any given employees' bonus
-var sti = function (person) {
-  var rating = person.rating;
+var sti = function (employee) {
+
+  var rating = employee[3];
   var bonusPercentage = 0;
 
-  //bonusPercentage calculated using employees' rating
   if (rating <= 2) {
     bonusPercentage = 0;
   } else if (rating == 3) {
@@ -35,17 +20,14 @@ var sti = function (person) {
     bonusPercentage = 0.1;
   }
 
-  //bonusPercentage calculated if employee has tenure
-  if (person.number.length == 4) {
+  if (employee[1].length == 4) {
     bonusPercentage += 0.05;
   }
 
-  //bonusPercentage reduction if salary is greater than 65000
-  if (person.salary > 65000) {
+  if (employee[2] > 65000) {
     bonusPercentage -= 0.01;
   }
 
-  //bonusPercentage capped at 13%
   if (bonusPercentage > 0.13) {
     bonusPercentage = 0.13;
   }
@@ -53,28 +35,24 @@ var sti = function (person) {
   return bonusPercentage;
 };
 
-//function takes the employees name, bonus percentage, new base salary + bonus, id number
-//and pushes it to an empty array
 var newArr = function (person) {
   var arr2 = [];
 
-  arr2.push(person.name);
+  arr2.push(person[0]);
   arr2.push(sti(person).toFixed(2));
-  arr2.push(Math.round(person.salary * (1 + sti(person))));
-  var bonusTotal = Math.round(person.salary * sti(person));
+  arr2.push(Math.round(person[2] * (1 + sti(person))));
+  var bonusTotal = Math.round(person[2] * sti(person));
   arr2.push(bonusTotal);
+  console.log(arr2);
   return arr2;
 };
 
-//logic that loops through the employees array using the newArr function
-//console.log returns the parameters for each employee using newArr and
-//pushes the values to individual empty arrays
 var finalArray = [];
 
 for (var i = 0; i < employees.length; i++) {
   var final = newArr(employees[i]);
   finalArray.push(final);
-  console.log(finalArray[i]);
+
 }
 
 /*
